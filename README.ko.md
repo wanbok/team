@@ -54,22 +54,22 @@ chmod +x install.sh
 
 ## 사용법
 
-### `/team` — 팀 시작
+### `/team:up` — 팀 시작
 
 ```
-/team SwiftUI + TCA iOS 앱 - 반려동물 입양 마켓플레이스
-/team Flutter 모바일 앱 - 피트니스 트래커 (소셜 기능 포함)
-/team 풀스택 웹앱 - 사내 HR 도구
+/team:up SwiftUI + TCA iOS 앱 - 반려동물 입양 마켓플레이스
+/team:up Flutter 모바일 앱 - 피트니스 트래커 (소셜 기능 포함)
+/team:up 풀스택 웹앱 - 사내 HR 도구
 ```
 
 PM이 프로젝트를 분석하고, 팀을 제안한 뒤, 페이즈별로 진행합니다.
 
-### `/team-design` — 커스텀 팀 설계
+### `/team:design` — 커스텀 팀 설계
 
 ```
-/team-design IoT 스마트홈 통합 플랫폼
-/team-design 실시간 분석 데이터 파이프라인
-/team-design Apple Pencil iPad 드로잉 앱
+/team:design IoT 스마트홈 통합 플랫폼
+/team:design 실시간 분석 데이터 파이프라인
+/team:design Apple Pencil iPad 드로잉 앱
 ```
 
 도메인을 분석해서 범용 역할 카탈로그를 전문 역할로 매핑합니다.

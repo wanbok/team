@@ -1,5 +1,5 @@
 {
-  "name": "agent-team-framework",
+  "name": "team",
   "version": "1.0.0",
   "description": "Dynamic multi-agent team orchestration for Claude Code. Spawns specialized agent teams (PM, Designer, Devs, QA, Oracle) with phased workflows, TDD enforcement, and cross-model verification.",
   "author": {

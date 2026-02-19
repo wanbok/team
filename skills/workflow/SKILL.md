@@ -1,5 +1,5 @@
 ---
-name: team-workflow
+name: workflow
 description: "Guide for the 6-phase agent team workflow. Provides phase-specific instructions, gate criteria, and team coordination patterns. Use when orchestrating a multi-agent development team through discovery, design, development, QA, and finalization phases."
 ---
 

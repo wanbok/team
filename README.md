@@ -54,22 +54,22 @@ chmod +x install.sh
 
 ## Usage
 
-### `/team` — Launch a Team
+### `/team:up` — Launch a Team
 
 ```
-/team SwiftUI + TCA iOS app for a pet adoption marketplace
-/team Flutter mobile app for a fitness tracker with social features
-/team Full-stack web app for an internal HR tool
+/team:up SwiftUI + TCA iOS app for a pet adoption marketplace
+/team:up Flutter mobile app for a fitness tracker with social features
+/team:up Full-stack web app for an internal HR tool
 ```
 
 The PM will analyze your project, propose a team, and guide you through the phases.
 
-### `/team-design` — Design a Custom Team
+### `/team:design` — Design a Custom Team
 
 ```
-/team-design IoT smart home integration platform
-/team-design Data pipeline for real-time analytics
-/team-design iPad drawing app with Apple Pencil support
+/team:design IoT smart home integration platform
+/team:design Data pipeline for real-time analytics
+/team:design iPad drawing app with Apple Pencil support
 ```
 
 This command analyzes your domain and maps the generic role catalog to specialized roles.
@@ -148,15 +148,15 @@ Copy and customize for your project:
 ```
 agent-team-framework/
 ├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest
+│   └── plugin.json          # Plugin manifest (name: "team")
 ├── commands/
-│   ├── team.md              # /team command
-│   └── team-design.md       # /team-design command
+│   ├── up.md                # /team:up — launch a team
+│   └── design.md            # /team:design — design a custom team
 ├── skills/
-│   └── team-workflow/
+│   └── workflow/
 │       └── SKILL.md         # Phase workflow guide
 ├── agents/
-│   └── team-reviewer.md     # Phase 0 team composition reviewer
+│   └── reviewer.md          # Phase 0 team composition reviewer
 ├── templates/
 │   ├── CLAUDE.md.template   # Project configuration template
 │   └── roles/               # Role definitions

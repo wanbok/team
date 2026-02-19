@@ -6,7 +6,7 @@ CLAUDE_DIR="${HOME}/.claude"
 echo "Uninstalling agent-team-framework..."
 
 # Remove commands
-for cmd in team.md team-design.md; do
+for cmd in up.md design.md; do
     target="${CLAUDE_DIR}/commands/${cmd}"
     if [ -L "$target" ]; then
         rm "$target"
@@ -15,7 +15,7 @@ for cmd in team.md team-design.md; do
 done
 
 # Remove skills
-for skill in team-workflow; do
+for skill in workflow; do
     target="${CLAUDE_DIR}/skills/${skill}"
     if [ -L "${target}/SKILL.md" ]; then
         rm "${target}/SKILL.md"
@@ -25,7 +25,7 @@ for skill in team-workflow; do
 done
 
 # Remove agents
-for agent in team-reviewer.md; do
+for agent in reviewer.md; do
     target="${CLAUDE_DIR}/agents/${agent}"
     if [ -L "$target" ]; then
         rm "$target"

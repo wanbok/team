@@ -1,5 +1,5 @@
 ---
-name: team-reviewer
+name: reviewer
 description: "On-demand agent that reviews team composition proposals at Phase 0. Validates role coverage, team size, and skill alignment for the project. Spawned once during team formation, then shuts down."
 model: sonnet
 tools: Read,Grep,Glob
