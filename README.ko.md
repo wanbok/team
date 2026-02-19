@@ -1,4 +1,4 @@
-# agent-team-framework
+# team
 
 [Claude Code](https://claude.com/claude-code)를 위한 동적 멀티 에이전트 팀 오케스트레이션. 요구사항부터 프로덕션까지 구조화된 페이즈를 거치는 전문 에이전트 팀을 생성합니다.
 
@@ -40,13 +40,13 @@ Phase 0~2는 사용자가 승인하고, 이후 3~5는 팀이 자율적으로 진
 /plugin install team@wanbok-claude-marketplace
 
 # 또는 GitHub에서 직접
-/plugin install --source github:wanbok/agent-team-framework
+/plugin install --source github:wanbok/team
 ```
 
 ### 수동 설치
 
 ```bash
-git clone https://github.com/wanbok/agent-team-framework.git
+git clone https://github.com/wanbok/team.git
 cd agent-team-framework
 chmod +x install.sh
 ./install.sh

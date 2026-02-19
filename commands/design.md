@@ -7,7 +7,7 @@ Design a specialized agent team for: $ARGUMENTS
 
 ## Instructions
 
-Use the agent-team-framework Role Catalog as a base, then adapt it to the target project domain.
+Use the team plugin Role Catalog as a base, then adapt it to the target project domain.
 
 ### Step 1: Analyze the Project Domain
 

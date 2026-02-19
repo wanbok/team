@@ -1,4 +1,4 @@
-# agent-team-framework
+# team
 
 Dynamic multi-agent team orchestration for [Claude Code](https://claude.com/claude-code). Spawns specialized teams that build your project through structured phases — from requirements to production.
 
@@ -40,13 +40,13 @@ You approve Phases 0-2, then the team runs autonomously through 3-5.
 /plugin install team@wanbok-claude-marketplace
 
 # Or directly from GitHub
-/plugin install --source github:wanbok/agent-team-framework
+/plugin install --source github:wanbok/team
 ```
 
 ### Manual Install
 
 ```bash
-git clone https://github.com/wanbok/agent-team-framework.git
+git clone https://github.com/wanbok/team.git
 cd agent-team-framework
 chmod +x install.sh
 ./install.sh

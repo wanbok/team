@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CLAUDE_DIR="${HOME}/.claude"
 
-echo "Installing agent-team-framework..."
+echo "Installing team..."
 
 # Install commands
 mkdir -p "${CLAUDE_DIR}/commands"

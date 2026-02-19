@@ -3,7 +3,7 @@ set -euo pipefail
 
 CLAUDE_DIR="${HOME}/.claude"
 
-echo "Uninstalling agent-team-framework..."
+echo "Uninstalling team..."
 
 # Remove commands
 for cmd in up.md design.md; do
