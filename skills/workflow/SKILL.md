@@ -70,9 +70,10 @@ Phase gate artifacts must conform to these schemas. Documents missing required f
 # Requirements: [Project Name]
 
 ## Functional Requirements
-- [ ] FR-1: [requirement] — Priority: [must/should/could]
+- [ ] FR-1: [requirement] — [priority indicator]
 - [ ] FR-2: ...
-(minimum 3 functional requirements)
+(minimum 3 functional requirements, each with priority)
+Priority format is flexible: must/should/could, P0/P1/P2, ✅/⚠️, or project convention
 
 ## Non-Functional Requirements
 - [ ] NFR-1: [requirement] (e.g., performance, security, accessibility)
@@ -80,25 +81,29 @@ Phase gate artifacts must conform to these schemas. Documents missing required f
 
 ## User Personas
 - **[Persona Name]**: [description, goals, pain points]
-(minimum 1 persona)
+(minimum 1 persona — inline or separate section both acceptable)
 
 ## Success Metrics
 - [metric]: [target] (e.g., "test coverage: 80%+")
-(minimum 1 measurable metric)
+(minimum 1 measurable metric with concrete target)
 
 ## Scope Boundary
 - **In scope**: [explicit list]
 - **Out of scope**: [explicit list]
 
-## Open Questions
-- [any unresolved items — must be empty before gate passage]
+## Blocking Questions
+- [questions that MUST be resolved before gate passage — must be empty]
+
+## Deferred Items
+- [items to resolve in Phase 2 — allowed to remain]
 ```
 
 **Validation rules**:
 - All sections present
-- Open Questions section must be empty (all resolved)
-- Each FR has a priority tag
+- **Blocking Questions** must be empty (all resolved). Deferred Items may remain
+- Each FR has a priority indicator (format flexible)
 - At least 1 persona, 1 success metric, 1 NFR
+- Scope Boundary explicitly separates in/out of scope
 
 ### Phase 2 Implementation Plan Schema
 
@@ -110,18 +115,21 @@ Phase gate artifacts must conform to these schemas. Documents missing required f
 - **Key decision**: [what was chosen and why]
 - **Rejected alternative**: [what was considered and why rejected]
 
-## File Map
-| File | Owner | Action | Description |
-|------|-------|--------|-------------|
-| `path/to/file.ext` | [role] | create/modify | [what changes] |
-(every file that will be created or modified)
-
 ## Task Breakdown
-| # | Task | Owner | Est. | Depends On | Test |
-|---|------|-------|------|------------|------|
-| T-1 | [task description] | [role] | [S/M/L] | - | [test file/case] |
-| T-2 | ... | ... | ... | T-1 | ... |
-(each task has an owner, a dependency, and a corresponding test)
+Each task must include: owner, dependency, and corresponding test.
+Format is flexible — consolidated table OR per-task sections both acceptable:
+
+Option A (table):
+| # | Task | Owner | Depends On | Test |
+|---|------|-------|------------|------|
+| T-1 | [description] | [role] | - | [test file/case] |
+
+Option B (per-task sections):
+### Task N: [title]
+- **Owner**: [role]
+- **Files**: [list of files to create/modify]
+- **Depends on**: [task IDs]
+- **Tests**: [test files]
 
 ## Contracts (Frozen at Gate)
 ### State/Action Contracts
@@ -129,20 +137,15 @@ Phase gate artifacts must conform to these schemas. Documents missing required f
 
 ### Dependency Signatures
 - [exact function/API signatures shared between modules]
-
-## Test Plan
-| Test | Type | Covers |
-|------|------|--------|
-| `test_file.ext` | unit/integration/e2e | T-1, T-2 |
-(every task must have at least one test mapped)
 ```
 
 **Validation rules**:
-- Architecture Overview includes at least 1 rejected alternative
-- File Map lists every file with owner assignment (no unowned files)
-- Every task has a corresponding test in the Test Plan
+- Architecture Overview includes at least 1 rejected alternative with rationale
+- Every file has an owner (via task assignment — no unowned files)
+- Every task has a corresponding test
 - Contracts section is non-empty (at least one State/Action or Dependency signature)
 - No task without an owner
+- Dependency graph is acyclic (no circular dependencies)
 
 ## Leader Coordination Patterns
 
