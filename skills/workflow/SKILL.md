@@ -28,17 +28,17 @@ Phase 0: Team Composition [user approval]
 
 ### Phase 1 → 2 (User Approval Required)
 
-- [ ] Requirements document complete (functional/non-functional, personas, success metrics)
+- [ ] Requirements document complete — must pass **Artifact Schema** (see below)
 - [ ] Competitive analysis (PM surveyed 3+ comparable apps/tools)
-- [ ] Oracle review passed (if available)
+- [ ] Oracle review passed (mandatory; waiver requires user approval + reason logged)
 - [ ] User approved
 
 ### Phase 2 → 3 (User Approval Required)
 
-- [ ] Implementation plan (task breakdown, per-teammate assignments)
+- [ ] Implementation plan — must pass **Artifact Schema** (see below)
 - [ ] UI design (design system, component specs, wireframes) — if applicable
 - [ ] Architecture contracts frozen (State/Action contracts, dependency signatures)
-- [ ] Oracle review passed (if available)
+- [ ] Oracle review passed (mandatory; waiver requires user approval + reason logged)
 - [ ] User approved → auto-execution begins
 
 ### Phase 3 → 4 (Auto)
@@ -57,8 +57,92 @@ Phase 0: Team Composition [user approval]
 
 - [ ] Production build succeeds
 - [ ] Final code review passed
-- [ ] Oracle final validation passed (if available)
+- [ ] Oracle final validation passed (mandatory; waiver requires user approval + reason logged)
 - [ ] Requirements vs. feature completeness checklist confirmed
+
+## Artifact Schemas
+
+Phase gate artifacts must conform to these schemas. Documents missing required fields **cannot pass the gate**.
+
+### Phase 1 Requirements Schema
+
+```markdown
+# Requirements: [Project Name]
+
+## Functional Requirements
+- [ ] FR-1: [requirement] — Priority: [must/should/could]
+- [ ] FR-2: ...
+(minimum 3 functional requirements)
+
+## Non-Functional Requirements
+- [ ] NFR-1: [requirement] (e.g., performance, security, accessibility)
+(minimum 1 non-functional requirement)
+
+## User Personas
+- **[Persona Name]**: [description, goals, pain points]
+(minimum 1 persona)
+
+## Success Metrics
+- [metric]: [target] (e.g., "test coverage: 80%+")
+(minimum 1 measurable metric)
+
+## Scope Boundary
+- **In scope**: [explicit list]
+- **Out of scope**: [explicit list]
+
+## Open Questions
+- [any unresolved items — must be empty before gate passage]
+```
+
+**Validation rules**:
+- All sections present
+- Open Questions section must be empty (all resolved)
+- Each FR has a priority tag
+- At least 1 persona, 1 success metric, 1 NFR
+
+### Phase 2 Implementation Plan Schema
+
+```markdown
+# Implementation Plan: [Project Name]
+
+## Architecture Overview
+- [1-2 paragraph summary of chosen architecture]
+- **Key decision**: [what was chosen and why]
+- **Rejected alternative**: [what was considered and why rejected]
+
+## File Map
+| File | Owner | Action | Description |
+|------|-------|--------|-------------|
+| `path/to/file.ext` | [role] | create/modify | [what changes] |
+(every file that will be created or modified)
+
+## Task Breakdown
+| # | Task | Owner | Est. | Depends On | Test |
+|---|------|-------|------|------------|------|
+| T-1 | [task description] | [role] | [S/M/L] | - | [test file/case] |
+| T-2 | ... | ... | ... | T-1 | ... |
+(each task has an owner, a dependency, and a corresponding test)
+
+## Contracts (Frozen at Gate)
+### State/Action Contracts
+- [exact type definitions or interface signatures]
+
+### Dependency Signatures
+- [exact function/API signatures shared between modules]
+
+## Test Plan
+| Test | Type | Covers |
+|------|------|--------|
+| `test_file.ext` | unit/integration/e2e | T-1, T-2 |
+(every task must have at least one test mapped)
+```
+
+**Validation rules**:
+- Architecture Overview includes at least 1 rejected alternative
+- File Map lists every file with owner assignment (no unowned files)
+- Every task has a corresponding test in the Test Plan
+- Contracts section is non-empty (at least one State/Action or Dependency signature)
+- No task without an owner
 
 ## Leader Coordination Patterns
 

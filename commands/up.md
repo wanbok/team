@@ -62,20 +62,20 @@ Phase 0: Team Composition [user approval]
   → Phase 5: Finalization [auto]
 ```
 
-**Phase 1 (Discovery)**: PM gathers requirements via brainstorming + brief competitive analysis. Oracle reviews. Wait for user approval.
+**Phase 1 (Discovery)**: PM gathers requirements via brainstorming + brief competitive analysis. Oracle reviews requirements (mandatory). Wait for user approval.
 
-**Phase 2 (Design)**: PM writes implementation plan, designer creates UI specs. Oracle reviews architecture. Wait for user approval.
+**Phase 2 (Design)**: PM writes implementation plan, designer creates UI specs. Oracle reviews architecture (mandatory, blocking). Wait for user approval.
 
 **Phase 3 (Development)**: Devs implement features in parallel with TDD. QA reviews continuously. Oracle available on request. Do NOT stop.
 
 **Phase 4 (QA)**: QA leads testing. UI-tester runs scenario + random tests. Oracle provides second opinions on critical issues. Failed tests reassigned to devs automatically.
 
-**Phase 5 (Finalization)**: Final code review, build verification, UI-tester final pass, Oracle final validation, completion checklist.
+**Phase 5 (Finalization)**: Final code review, build verification, UI-tester final pass, Oracle final validation (mandatory), completion checklist.
 
 ### Mandatory Rules
 
-1. **Requirements first** — NO code before requirements are approved
-2. **TDD required** — ALL code must have tests written FIRST (Red → Green → Refactor)
+1. **Requirements first** — NO code before requirements are approved. Requirements must pass the Artifact Schema (see workflow skill)
+2. **TDD required** — ALL code must have tests written FIRST (Red → Green → Refactor). Implementation plan must map every task to a test
 3. **File ownership** — Each teammate only edits their own directories (defined in project CLAUDE.md)
 4. **Evidence-based completion** — Use verification-before-completion before ANY completion claims
 5. **Code review required** — QA reviews all major features before proceeding
@@ -84,3 +84,4 @@ Phase 0: Team Composition [user approval]
 8. **Non-stop development** — After Phase 2 approval, DO NOT STOP until Phase 5 is complete
 9. **Feedback loops** — QA pattern repeated 2+ times → add linter rule or golden rule
 10. **Only work on tasks assigned to YOU** — Do NOT complete another teammate's task
+11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires explicit user approval with reason logged. Auto-triggered on: security decisions, migrations, new architecture patterns, large diffs (10+ files)
