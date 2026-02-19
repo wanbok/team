@@ -1,0 +1,21 @@
+{
+  "name": "agent-team-framework",
+  "version": "1.0.0",
+  "description": "Dynamic multi-agent team orchestration for Claude Code. Spawns specialized agent teams (PM, Designer, Devs, QA, Oracle) with phased workflows, TDD enforcement, and cross-model verification.",
+  "author": {
+    "name": "Wanbok Choi",
+    "url": "https://github.com/wanbok"
+  },
+  "repository": "https://github.com/wanbok/agent-team-framework",
+  "homepage": "https://github.com/wanbok/agent-team-framework",
+  "license": "MIT",
+  "keywords": [
+    "agent-team",
+    "orchestration",
+    "multi-agent",
+    "tdd",
+    "project-management",
+    "code-review",
+    "cross-model"
+  ]
+}
