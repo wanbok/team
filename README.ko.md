@@ -37,7 +37,7 @@ Phase 0~2는 사용자가 승인하고, 이후 3~5는 팀이 자율적으로 진
 
 ```bash
 # 마켓플레이스 등록 후
-/plugin install agent-team-framework@wanbok-claude-marketplace
+/plugin install team@wanbok-claude-marketplace
 
 # 또는 GitHub에서 직접
 /plugin install --source github:wanbok/agent-team-framework

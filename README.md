@@ -37,7 +37,7 @@ You approve Phases 0-2, then the team runs autonomously through 3-5.
 
 ```bash
 # Via marketplace (if registered)
-/plugin install agent-team-framework@wanbok-claude-marketplace
+/plugin install team@wanbok-claude-marketplace
 
 # Or directly from GitHub
 /plugin install --source github:wanbok/agent-team-framework
