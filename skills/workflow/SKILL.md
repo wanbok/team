@@ -45,7 +45,9 @@ Phase 0: Team Composition [user approval]
 
 - [ ] All development tasks complete
 - [ ] Each module's unit tests passing
+- [ ] Per-module coverage report submitted (minimum 50% at Phase 3 exit; 80%+ enforced at Phase 4→5)
 - [ ] Code reviews passed
+- [ ] Pre-Implementation Diff Check: no non-planning file changes before Phase 2 GATE:PASS (Rule 14)
 
 ### Phase 4 → 5 (Auto)
 
@@ -57,7 +59,7 @@ Phase 0: Team Composition [user approval]
 
 - [ ] Production build succeeds
 - [ ] Final code review passed
-- [ ] Oracle final validation passed (mandatory; waiver requires user approval + reason logged)
+- [ ] Oracle final validation passed (mandatory; waiver requires user approval + reason logged). Oracle Phase 5 scope: (1) verify all High/Medium Oracle Findings from Phases 1-4 are resolved, (2) confirm no new risk triggers introduced in Phase 5, (3) validate production build artifact against requirements completeness checklist
 - [ ] Requirements vs. feature completeness checklist confirmed
 
 ## Artifact Schemas
@@ -107,7 +109,8 @@ Priority format is flexible: must/should/could, P0/P1/P2, ✅/⚠️, or project
 (every FR must map to at least one task and one test path — no empty cells allowed)
 
 ## Blocking Questions
-- [questions that MUST be resolved before gate passage — must be empty]
+- [unresolved blockers — each must have owner, due date, and mitigation plan]
+- [any unresolved blocker without an approved waiver is GATE:FAIL]
 
 ## Deferred Items
 - [items to resolve in Phase 2 — allowed to remain]
@@ -123,14 +126,15 @@ Gate rule: Any High severity finding without a mitigation task or explicit user-
 
 **Validation rules**:
 - All sections present
-- **Blocking Questions** must be empty (all resolved). Deferred Items may remain
+- **Blocking Questions**: unresolved blockers must each have owner, due date, and mitigation plan. Any unresolved blocker without an approved waiver is GATE:FAIL. Deferred Items may remain
 - Each FR has a priority indicator (format flexible)
 - Each FR must include at least 2 acceptance criteria: 1 happy-path and 1 failure/edge-case (Given/When/Then or equivalent testable statement). Placeholders (TBD, TBA, N/A) are invalid
 - At least 1 persona, 1 success metric, 1 NFR
 - Scope Boundary: minimum 2 in-scope items and 2 out-of-scope items
 - Competitive Analysis: minimum 3 apps, all 5 columns filled (no empty cells)
-- Traceability Matrix: every FR has at least one Task ID and one test path — no empty cells
+- Traceability Matrix: every FR has at least one Task ID and one test path — no empty cells. Every cell must reference existing IDs (FR-*, T-*, test path); placeholders (TBD, N/A, "later") are invalid
 - Success Metric must specify: baseline (or "new"), target value, and measurement method
+- **Testability rule**: Any FR/NFR using subjective terms (e.g., "fast", "robust", "secure", "user-friendly", "scalable") must include numeric or binary pass/fail criteria; otherwise GATE:FAIL
 - **Validated by QA** (not the artifact author). Artifact must include `Validated-by: [role] [timestamp]`
 
 ### Phase 2 Implementation Plan Schema
@@ -179,7 +183,7 @@ Gate rule: Any High severity finding without a mitigation task or explicit user-
 - Architecture Overview includes at least 1 rejected alternative with rationale
 - Every created/modified file appears in the Files column (Option A) or Files field (Option B) and has exactly one owner
 - Every task has a corresponding test — test file path must be specified (no "TBD" or placeholder)
-- Task Breakdown contains at least 1 task entry
+- Task Breakdown contains at least max(3, number of FRs) task entries — a single monolithic task is GATE:FAIL
 - Contracts section is non-empty (at least one State/Action or Dependency signature)
 - No task without an owner
 - Dependency graph is acyclic (no circular dependencies)

@@ -26,7 +26,7 @@ When a pattern repeats in reviews:
 2. If not enforceable → add to `.golden-rules.md`
 3. Update relevant directory's CLAUDE.md
 
-**Closure proof required**: QA must provide the commit SHA and a verification command proving the rule was added and is active. Without this proof, the finding remains open and blocks related phase advancement.
+**Closure proof required**: QA must provide the commit SHA, a verification command, AND a re-run output proving the rule was added and is active. A stale SHA without re-run output and timestamp is incomplete closure. Without complete closure proof, the finding remains open and blocks related phase advancement.
 
 Example:
 ```

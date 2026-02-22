@@ -48,7 +48,7 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
   3. What am I least confident about?
 - Do NOT intervene with idle teammates who have active tasks (they may be waiting for subagents).
   - Exception: blocker unreported >10min or deadlock detected.
-- Context rotation: when next task is unrelated to previous work (changes 2+ of: feature domain, primary owned directory, stakeholder objective), shut down teammate and spawn fresh instance with same role name. Write a handoff summary before shutdown.
+- Context rotation: when next task is unrelated to previous work (changes 2+ of: feature domain, primary owned directory, stakeholder objective), shut down teammate and spawn fresh instance with same role name. Write a handoff summary before shutdown. Attribute definitions: "feature domain" = the product feature being built (e.g., auth, notifications, payment); "primary owned directory" = the OWNERS.md row matching the task; "stakeholder objective" = the FR ID or user story being served.
 - **Handoff summary template** (max 500 words):
   1. Current task state (done / in-progress / blocked)
   2. Open blockers and who owns them
@@ -62,6 +62,12 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
 **Cross-ownership changes**:
 - If a task spans more than one ownership area, leader creates a joint task with a primary owner and required co-reviewers before any coding begins.
 - Other teammates wait until the cross-ownership change is complete before modifying related files.
+
+**OWNERS.md freeze**:
+- After Phase 2 `GATE:PASS`, OWNERS.md is frozen. Any post-freeze change requires: (1) leader approval, (2) updated task mapping in a supplemental handoff packet, (3) logged decision entry, (4) QA re-validation
+
+**Separation of duties**:
+- For every task, owner and QA approver must be distinct agents. Where team size permits, reviewer should also differ from owner. Owner self-approving their own QA is `GATE:FAIL`
 
 **Handoff packets**:
 - Phase 2→3: each task assignment must include Task ID, owner role, reviewer role, and acceptance test reference. Must also include OWNERS.md (directory-to-role map) for the project.
@@ -117,5 +123,7 @@ Phase 0: Team Composition [user approval]
 8. **Non-stop development** — After Phase 2 approval, DO NOT STOP until Phase 5 is complete
 9. **Feedback loops** — QA pattern repeated 2+ times → add linter rule or golden rule
 10. **Only work on tasks assigned to YOU** — Do NOT complete another teammate's task
-11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires ALL of: (1) small scope (<5 files, single feature), (2) no risk triggers present, (3) explicit user approval with stated reason logged, (4) QA co-sign confirming no risk triggers. Waiver valid for current phase only; does not carry forward. Auto-triggered on: security decisions (auth/authz, secrets, encryption, PII), DB migrations, new architecture patterns (framework or design pattern not previously used), external API integrations (new outbound endpoint or third-party SDK), large diffs (10+ files)
+11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Additionally, Oracle is mandatory immediately when any auto-trigger condition appears in any phase (not only at boundaries). Waiver requires ALL of: (1) small scope (<5 files, single feature), (2) no risk triggers present, (3) explicit user approval with stated reason logged, (4) QA co-sign confirming no risk triggers. Waiver valid for current phase only; does not carry forward. Auto-triggered on: security decisions (auth/authz, secrets, encryption, PII), DB migrations, new architecture patterns (framework or design pattern not previously used), external API integrations (new outbound endpoint or third-party SDK), large diffs (10+ cumulative unique files since phase start — commit/PR splitting does not waive Oracle). **Critical-domain no-waiver**: Oracle waiver is prohibited for auth/authz, payments, PII handling, retention/deletion policies, database schema/migrations, and public API contract changes regardless of file count or scope
 12. **Hard gate lock** — No implementation task may begin until Phase 1 and Phase 2 each receive `GATE:PASS` from QA (not the leader or artifact author) plus user approval. `GATE:FAIL` blocks all downstream work
+13. **Pre-implementation lock** — Before Phase 2 receives `GATE:PASS` + user approval, only planning artifacts may change (requirements doc, implementation plan, OWNERS.md, decision log, handoff packets). Any change to source code, tests, build files, infrastructure, migrations, or executable scripts is an automatic `GATE:FAIL`
+14. **Mechanical gate check** — Gate receiver must attach a Pre-Implementation Diff Check (changed file list + planning/non-planning classification) to every `GATE:PASS`. Presence of any non-planning file change before approval invalidates the gate
