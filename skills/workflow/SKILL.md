@@ -47,7 +47,9 @@ Phase 0: Team Composition [user approval]
 - [ ] Each module's unit tests passing
 - [ ] Per-module coverage report submitted (minimum 50% at Phase 3 exit; 80%+ enforced at Phase 4→5)
 - [ ] Code reviews passed
+- [ ] TDD proof-of-order: QA verified commit ordering (Red→Green) for at least one representative task per developer
 - [ ] Pre-Implementation Diff Check: no non-planning file changes before Phase 2 GATE:PASS (Rule 14)
+- [ ] Leader context checkpoint logged (utilization %, active tasks, last compaction timestamp)
 
 ### Phase 4 → 5 (Auto)
 

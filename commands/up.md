@@ -54,7 +54,7 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
   2. Open blockers and who owns them
   3. Last decision made and rationale
   4. Next expected action for the incoming instance
-- **Leader context compaction**: compact context at ~60% window utilization; rotate leader at ~80%. Archive completed-phase details into the decision log before compacting.
+- **Leader context compaction**: compact context at ~60% window utilization; rotate leader at ~80%. Archive completed-phase details into the decision log before compacting. **Context checkpoint**: at every `GATE:PASS` transition, leader must log a context state entry in the decision log ("context at X% utilization, N tasks active, last compaction: [timestamp]"). Missing checkpoint blocks the next gate.
 - Task tool subagents are READ-ONLY (research/file reading only). Never delegate implementation to subagents.
 
 ### Coordination Protocols
@@ -71,8 +71,9 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
 
 **Handoff packets**:
 - Phase 2→3: each task assignment must include Task ID, owner role, reviewer role, and acceptance test reference. Must also include OWNERS.md (directory-to-role map) for the project.
-- Phase 3→4: dev submits an evidence packet per Task ID before QA review: test run output, coverage report, and diff summary.
+- Phase 3→4: dev submits an evidence packet per Task ID before QA review: test run output, coverage report, and diff summary. **TDD proof-of-order**: dev must include at minimum one commit showing a failing test (Red) before the corresponding implementation commit (Green) for each Task ID. QA must verify commit ordering for at least one representative task per developer.
 - Phase 4→5: QA submits test summary with pass/fail counts, coverage percentage, and list of open issues.
+- **Open Oracle Findings** (required in every phase handoff packet): list all unresolved Medium findings with Finding ID, title, current Resolution entry, and originating phase. Visibility requirement only — no re-evaluation at intermediate gates.
 - **Oracle trigger checklist** (required in every phase handoff packet):
   - [ ] Security decisions (auth/authz, secrets, encryption, PII)?
   - [ ] DB migrations or schema changes?

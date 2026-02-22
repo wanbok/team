@@ -67,3 +67,11 @@ When Oracle review is conducted, findings must be recorded in the phase artifact
 - **High**: Must fix before gate passage (blocking). Requires mitigation task or explicit user-approved acceptance
 - **Medium**: PM judgment — fix or accept with documented rationale
 - **Low**: Add to backlog
+
+## Oracle Finding Deferral Policy (Medium Severity)
+
+1. At the gate where a Medium finding is first deferred, the deferring agent must log a one-line rationale in the Oracle Findings table (Resolution column). A deferral entry with an empty or placeholder rationale (TBD, deferred, —) is treated as High and blocks the gate.
+2. Every phase handoff packet must include an "Open Oracle Findings" section listing all unresolved Medium findings with their current Resolution entry. This is a visibility requirement only — no re-evaluation is required at intermediate gates.
+3. At Phase 5 gate (mandatory per SKILL.md), QA must verify every Medium finding from Phases 1-4 has a final disposition: Fixed, Accepted (with rationale), or Escalated to High. A finding with no final disposition blocks Phase 5 completion.
+
+**Escalation**: A Medium finding escalates to High if and only if its Resolution field contains a placeholder at any gate where rationale is required. Time-based auto-escalation is not applied.
