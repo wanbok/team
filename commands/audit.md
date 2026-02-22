@@ -8,63 +8,111 @@ Run a cross-model health check on the team framework configuration for the curre
 
 ## Prerequisites
 
-- Oracle role available (claude-oracle plugin or Codex CLI)
+- Oracle role available (oracle plugin or Codex CLI)
 - Project has been through at least one `/team:up` cycle, OR has framework docs to analyze
 
 ## Audit Procedure
 
 ### Step 1: Gather Context
 
-Read the following files (skip if not found):
+Read the following files in parallel (skip if not found):
 
 1. **Framework source of truth**: The team plugin's `commands/up.md` and `skills/workflow/SKILL.md`
 2. **Project CLAUDE.md**: Current project's team rules and file ownership
 3. **Phase artifacts**: Any requirements docs, implementation plans, decision logs in the project
 4. **Vault learnings**: `~/Documents/vault/Tech/Agent Team Learnings.md`
 
-### Step 2: Construct Audit Prompt
+Use a single Explore subagent to gather all files and return a summarized context bundle.
 
-Send ALL gathered context to Oracle (Codex) with this structured prompt:
+### Step 2: Parallel Area Audits
 
+Send 5 **parallel** Oracle requests, one per area. Each area gets only its relevant context slice.
+
+**Area 1: RPI Enforcement**
 ```
-Audit this agent team framework configuration. Analyze these 5 areas and score each 1-5:
+Audit this agent team framework's RPI (Research-Plan-Implement) enforcement.
 
-1. RPI ENFORCEMENT
-   - Are Research (Phase 1) and Plan (Phase 2) gates mechanically enforced or just advisory?
-   - Can shallow documents pass gates?
-   - Is there a clear "no code before requirements" boundary?
+[Include: Phase gate criteria from SKILL.md, Rules 1/12 from up.md, Artifact Schemas]
 
-2. ORACLE INTEGRATION
-   - Is Oracle review default-ON at Phase gates?
-   - Are waiver conditions explicit?
-   - Are risk-based auto-triggers defined?
+Score 1-5 on:
+- Are Research (Phase 1) and Plan (Phase 2) gates mechanically enforced or just advisory?
+- Can shallow documents pass gates? Is there a quality floor (acceptance criteria, scope minimums)?
+- Is there a clear "no code before requirements" boundary with enforcement (not just policy text)?
+- Is gate validation independent (non-author)?
 
-3. ARTIFACT QUALITY
-   - Do Phase 1/2 artifacts follow a structured schema?
-   - Are validation rules concrete and checkable?
-   - Do artifacts include: scope boundary, rejected alternatives, test mapping?
-
-4. CONTEXT MANAGEMENT
-   - Is teammate context rotation defined?
-   - Is leader context compaction addressed?
-   - Are sub-agent constraints (read-only) explicit?
-
-5. COORDINATION
-   - Is file ownership clearly defined?
-   - Are task assignment rules explicit for each phase?
-   - Is the feedback loop (QA → lint rules) defined?
-
-For each area:
-- Score (1-5)
-- Specific gaps found
-- Concrete fix (exact text or rule to add)
-
-End with: Overall health score (average) and top 3 priority fixes.
+Return: Score, specific gaps, concrete fix (exact text to add/change with file path).
 ```
 
-### Step 3: Process Results
+**Area 2: Oracle Integration**
+```
+Audit this agent team framework's Oracle (cross-model verification) integration.
 
-Parse Codex response and classify findings:
+[Include: oracle.md, Rules 11 from up.md, Phase gate Oracle requirements from SKILL.md]
+
+Score 1-5 on:
+- Is Oracle review default-ON at Phase gates?
+- Are waiver conditions explicit with AND logic?
+- Are risk-based auto-triggers defined with concrete examples (not vague terms)?
+- Do artifacts have a structured Oracle Findings table with severity-based gate blocking?
+- Is there a decision log SLA for waivers?
+
+Return: Score, specific gaps, concrete fix (exact text to add/change with file path).
+```
+
+**Area 3: Artifact Quality**
+```
+Audit this agent team framework's artifact quality gates.
+
+[Include: Artifact Schemas from SKILL.md, validation rules]
+
+Score 1-5 on:
+- Do Phase 1/2 artifacts follow a structured schema with minimum counts?
+- Are validation rules concrete and checkable (not just "all sections present")?
+- Do artifacts include: scope boundary (with minimums), rejected alternatives, test mapping (no TBD)?
+- Is third-party validation required (QA, not author)?
+- Is there an Oracle Findings section in the schema?
+
+Return: Score, specific gaps, concrete fix (exact text to add/change with file path).
+```
+
+**Area 4: Context Management**
+```
+Audit this agent team framework's context management strategy.
+
+[Include: Leader Operating Discipline from up.md, Teammate Lifecycle from SKILL.md]
+
+Score 1-5 on:
+- Is teammate context rotation defined with concrete triggers (not just "unrelated")?
+- Is leader context compaction addressed (soft/hard limits, compaction strategy)?
+- Are sub-agent constraints (read-only) explicit in BOTH up.md and SKILL.md?
+- Is there a handoff summary requirement before teammate shutdown?
+
+Return: Score, specific gaps, concrete fix (exact text to add/change with file path).
+```
+
+**Area 5: Coordination**
+```
+Audit this agent team framework's coordination mechanisms.
+
+[Include: File ownership rules, task assignment rules, feedback loop from up.md and SKILL.md, qa.md]
+
+Score 1-5 on:
+- Is file ownership clearly defined with a canonical template (not just "see project CLAUDE.md")?
+- Are task assignment rules explicit for each phase (leader-assigned vs self-assigned)?
+- Is the cross-ownership conflict resolution protocol defined?
+- Are handoff packet formats defined between phases?
+- Is the feedback loop (QA → lint rules) defined with closure proof requirement?
+- Is the decision log SLA enforced (missing entry blocks next gate)?
+
+Return: Score, specific gaps, concrete fix (exact text to add/change with file path).
+```
+
+### Step 3: Aggregate & Classify
+
+Collect all 5 Oracle responses and compute:
+- Per-area score (1-5)
+- Overall health score (average)
+- Classification per area:
 
 | Severity | Action |
 |----------|--------|
@@ -79,7 +127,7 @@ Output audit results to the user:
 ```markdown
 ## Framework Audit Report
 
-**Overall Health**: [X/5]
+**Overall Health**: [X.X/5]
 **Date**: [YYYY-MM-DD]
 
 ### Scores
@@ -97,19 +145,20 @@ Output audit results to the user:
 3. ...
 
 ### Detailed Findings
-[per-area gaps and recommendations from Codex]
+[per-area gaps and recommendations]
 ```
 
 ### Step 5: Apply (Optional)
 
 If user approves, apply the priority fixes directly:
-- Edit framework files (workflow/SKILL.md, up.md, project CLAUDE.md)
-- Commit changes
+- Edit framework files (workflow/SKILL.md, up.md, role templates)
+- Commit changes to team plugin repo
+- Sync relevant changes to project CLAUDE.md if needed
 - Log the audit in the project's decision log
 
 ## When to Run
 
-- After modifying framework rules (up.md, workflow/SKILL.md, oracle.md)
+- After modifying framework rules (up.md, workflow/SKILL.md, role templates)
 - Before launching a team on a new project type
 - Periodically (every 2-3 team cycles) as a health check
 - After a retrospective identifies framework-level issues
