@@ -1,170 +1,160 @@
 # team
 
-Dynamic multi-agent team orchestration for [Claude Code](https://claude.com/claude-code). Spawns specialized teams that build your project through structured phases — from requirements to production.
+[Claude Code](https://claude.com/claude-code)를 위한 동적 멀티 에이전트 팀 오케스트레이션. 요구사항부터 프로덕션까지 구조화된 페이즈를 거치는 전문 에이전트 팀을 생성합니다.
 
-[한국어](README.ko.md)
+[English](README.en.md) | [日本語](README.ja.md) | [Tiếng Việt](README.vi.md)
 
-## What It Does
+## 하는 일
 
-Instead of one AI coding alone, this framework creates a **team of specialized agents** that collaborate like a real development team:
-
-```
-You (Leader)
-├── PM           — gathers requirements, breaks down tasks
-├── Designer     — creates UI specs and design systems
-├── Dev A        — implements Feature A with TDD
-├── Dev B        — implements Feature B with TDD
-├── QA           — reviews code, runs tests
-└── Oracle       — cross-model verification (optional)
-```
-
-The team follows a **6-phase pipeline** with quality gates:
+AI 하나가 혼자 코딩하는 대신, 실제 개발팀처럼 **전문 에이전트 팀**이 협업합니다:
 
 ```
-Phase 0: Team Composition [you approve the team]
-  → Phase 1: Discovery [you approve requirements]
-  → Phase 2: Design [you approve the plan]
-  → Phase 3: Development [auto — TDD, parallel]
-  → Phase 4: QA [auto — testing, review]
-  → Phase 5: Finalization [auto — build, verify]
+나 (리더)
+├── PM           — 요구사항 수집, 태스크 분해
+├── Designer     — UI 스펙, 디자인 시스템
+├── Dev A        — Feature A 구현 (TDD)
+├── Dev B        — Feature B 구현 (TDD)
+├── QA           — 코드 리뷰, 테스트
+└── Oracle       — 크로스 모델 검증 (선택)
 ```
 
-You approve Phases 0-2, then the team runs autonomously through 3-5.
+팀은 **6단계 파이프라인**과 품질 게이트를 따릅니다:
 
-## Install
+```
+Phase 0: 팀 구성 [사용자 승인]
+  → Phase 1: 요구사항 [사용자 승인]
+  → Phase 2: 설계 [사용자 승인]
+  → Phase 3: 개발 [자동 — TDD, 병렬]
+  → Phase 4: QA [자동 — 테스트, 리뷰]
+  → Phase 5: 완성 [자동 — 빌드, 검증]
+```
 
-### As a Claude Code Plugin (Recommended)
+Phase 0~2는 사용자가 승인하고, 이후 3~5는 팀이 자율적으로 진행합니다.
+
+## 설치
+
+### Claude Code 플러그인 (권장)
 
 ```bash
-# Via marketplace (if registered)
+# 마켓플레이스 등록 후
 /plugin install team@wanbok-claude-marketplace
 
-# Or directly from GitHub
+# 또는 GitHub에서 직접
 /plugin install --source github:wanbok/team
 ```
 
-### Manual Install
+### 수동 설치
 
 ```bash
 git clone https://github.com/wanbok/team.git
-cd agent-team-framework
+cd team
 chmod +x install.sh
 ./install.sh
 ```
 
-## Usage
+## 사용법
 
-### `/team:up` — Launch a Team
-
-```
-/team:up SwiftUI + TCA iOS app for a pet adoption marketplace
-/team:up Flutter mobile app for a fitness tracker with social features
-/team:up Full-stack web app for an internal HR tool
-```
-
-The PM will analyze your project, propose a team, and guide you through the phases.
-
-### `/team:design` — Design a Custom Team
+### `/team:up` — 팀 시작
 
 ```
-/team:design IoT smart home integration platform
-/team:design Data pipeline for real-time analytics
-/team:design iPad drawing app with Apple Pencil support
+/team:up SwiftUI + TCA iOS 앱 - 반려동물 입양 마켓플레이스
+/team:up Flutter 모바일 앱 - 피트니스 트래커 (소셜 기능 포함)
+/team:up 풀스택 웹앱 - 사내 HR 도구
 ```
 
-This command analyzes your domain and maps the generic role catalog to specialized roles.
+PM이 프로젝트를 분석하고, 팀을 제안한 뒤, 페이즈별로 진행합니다.
 
-## Role Catalog
+### `/team:design` — 커스텀 팀 설계
 
-| Role | Description | Model | Multiple |
-|------|-------------|-------|----------|
-| pm | Requirements, planning, competitive analysis | Opus | - |
-| designer | UI/UX, design system, wireframes | Opus | - |
-| ios-dev | iOS (SwiftUI/TCA) | Opus | Yes |
-| flutter-dev | Flutter/Dart | Opus | Yes |
-| frontend-dev | Web frontend | Opus | Yes |
-| backend-dev | Backend API | Opus | Yes |
-| qa | Testing, code review | Opus | - |
-| ui-tester | Device/simulator UI testing | Opus | - |
-| oracle | Cross-model verification (read-only) | Sonnet | - |
-
-For non-app domains, dev roles are mapped to domain specialists:
-
-| Domain | Possible Roles |
-|--------|---------------|
-| IoT/Infra | Platform Engineer, Integrator, Architect |
-| Data | ETL Engineer, ML Engineer, Schema Designer |
-| CLI Tools | Core Dev, Plugin Dev (no designer needed) |
-
-## Key Principles
-
-1. **Requirements First** — no code until requirements are approved
-2. **TDD Required** — all code starts with tests (Red → Green → Refactor)
-3. **File Ownership** — each teammate owns specific directories; no conflicts
-4. **Evidence-Based Completion** — "done" requires test evidence
-5. **Non-Stop Development** — after Phase 2, the team doesn't stop until Phase 5
-6. **Feedback Loops** — recurring QA patterns become lint rules
-
-## Works Great With
-
-### [claude-oracle](https://github.com/wanbok/claude-oracle)
-
-Cross-model verification plugin. When installed, the Oracle role in your team automatically uses it for:
-- Architecture review at Phase Gates
-- Code review second opinions
-- Alternative implementation suggestions
-
-```bash
-# Install oracle for enhanced team verification
-git clone https://github.com/wanbok/claude-oracle.git
-cd claude-oracle && ./install.sh
 ```
+/team:design IoT 스마트홈 통합 플랫폼
+/team:design 실시간 분석 데이터 파이프라인
+/team:design Apple Pencil iPad 드로잉 앱
+```
+
+도메인을 분석해서 범용 역할 카탈로그를 전문 역할로 매핑합니다.
+
+## 역할 카탈로그
+
+| 역할 | 설명 | 모델 | 복수 |
+|------|------|------|------|
+| pm | 요구사항, 계획, 경쟁 분석 | Opus | - |
+| designer | UI/UX, 디자인 시스템, 와이어프레임 | Opus | - |
+| ios-dev | iOS (SwiftUI/TCA) | Opus | O |
+| flutter-dev | Flutter/Dart | Opus | O |
+| frontend-dev | 웹 프론트엔드 | Opus | O |
+| backend-dev | 백엔드 API | Opus | O |
+| qa | 테스트, 코드 리뷰 | Opus | - |
+| ui-tester | 디바이스/시뮬레이터 UI 테스트 | Opus | - |
+| oracle | 크로스 모델 검증 (읽기 전용) | Sonnet | - |
+
+비앱 도메인에서는 dev 역할이 도메인 전문가로 매핑됩니다:
+
+| 도메인 | 가능한 역할 |
+|--------|------------|
+| IoT/인프라 | Platform Engineer, Integrator, Architect |
+| 데이터 | ETL Engineer, ML Engineer, Schema Designer |
+| CLI 도구 | Core Dev, Plugin Dev (designer 불필요) |
+
+## 핵심 원칙
+
+1. **요구사항 우선** — 요구사항 승인 전 코드 작성 금지
+2. **TDD 필수** — 모든 코드는 테스트 먼저 (Red → Green → Refactor)
+3. **파일 소유권** — 각 팀원은 자신의 디렉토리만 편집, 충돌 방지
+4. **증거 기반 완료** — "완료"는 테스트 증거가 있어야만 선언
+5. **멈추지 않는 개발** — Phase 2 이후 Phase 5까지 자동 진행
+6. **피드백 루프** — QA에서 반복되는 패턴은 린트 룰로 전환
+
+## 함께 사용하면 좋은 플러그인
+
+### [oracle](https://github.com/wanbok/oracle)
+
+크로스 모델 검증 플러그인. 설치하면 팀의 Oracle 역할이 자동으로 활용합니다:
+- Phase Gate에서 아키텍처 리뷰
+- 코드 리뷰 세컨드 오피니언
+- 대안 구현 제안
 
 ### [superpowers](https://github.com/obra/superpowers)
 
-The framework references superpowers skills (brainstorming, writing-plans, test-driven-development, etc.). Install superpowers for the full experience:
+brainstorming, writing-plans, test-driven-development 등의 스킬을 참조합니다.
+
+## 커스터마이징
+
+### 템플릿
+
+프로젝트에 복사해서 커스터마이즈하세요:
+
+- `templates/CLAUDE.md.template` — 프로젝트 CLAUDE.md에 추가할 팀 설정
+- `templates/roles/` — 상세 역할 정의 (pm, designer, dev, qa, oracle)
+
+### 예시
+
+- `examples/ios-app-team.md` — iOS SwiftUI + TCA 팀
+- `examples/flutter-app-team.md` — Flutter 모바일 팀
+- `examples/web-service-team.md` — 풀스택 웹 팀
+
+## 플러그인 구조
 
 ```
-/plugin install superpowers@claude-code-plugins
-```
-
-## Customization
-
-### Templates
-
-Copy and customize for your project:
-
-- `templates/CLAUDE.md.template` — team configuration to add to your project's CLAUDE.md
-- `templates/roles/` — detailed role definitions (pm, designer, dev, qa, oracle)
-
-### Examples
-
-- `examples/ios-app-team.md` — iOS SwiftUI + TCA team
-- `examples/flutter-app-team.md` — Flutter mobile team
-- `examples/web-service-team.md` — Full-stack web team
-
-## Plugin Structure
-
-```
-agent-team-framework/
+team/
 ├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest (name: "team")
+│   └── plugin.json          # 플러그인 매니페스트 (name: "team")
 ├── commands/
-│   ├── up.md                # /team:up — launch a team
-│   └── design.md            # /team:design — design a custom team
+│   ├── up.md                # /team:up — 팀 시작
+│   └── design.md            # /team:design — 커스텀 팀 설계
 ├── skills/
 │   └── workflow/
-│       └── SKILL.md         # Phase workflow guide
+│       └── SKILL.md         # 페이즈 워크플로우 가이드
 ├── agents/
-│   └── reviewer.md          # Phase 0 team composition reviewer
+│   └── reviewer.md          # Phase 0 팀 구성 리뷰어
 ├── templates/
-│   ├── CLAUDE.md.template   # Project configuration template
-│   └── roles/               # Role definitions
-├── examples/                # Example team compositions
-├── install.sh               # Manual installation
-└── uninstall.sh             # Manual uninstallation
+│   ├── CLAUDE.md.template   # 프로젝트 설정 템플릿
+│   └── roles/               # 역할 정의
+├── examples/                # 팀 구성 예시
+├── install.sh               # 수동 설치
+└── uninstall.sh             # 수동 제거
 ```
 
-## License
+## 라이선스
 
 MIT
