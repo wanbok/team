@@ -76,7 +76,7 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
   - If any box is checked → Oracle review is mandatory for this transition.
 
 **Decision log SLA**:
-- Every gate approval, waiver, or exception must be logged in the project decision file within the same phase session. A missing entry blocks the next gate.
+- Every gate approval, waiver, or exception must be logged in the project decision file within the same phase session. A missing entry blocks the next gate. The designated gate receiver (leader for 2→3, QA for 3→4 and 4→5) must verify decision log completeness before posting `GATE:PASS`.
 
 ### Workflow Phases
 
@@ -103,7 +103,13 @@ Phase 0: Team Composition [user approval]
 
 1. **Requirements first** — NO code before requirements are approved. Requirements must pass the Artifact Schema (see workflow skill)
 2. **TDD required** — ALL code must have tests written FIRST (Red → Green → Refactor). Implementation plan must map every task to a test
-3. **File ownership** — Each teammate only edits their own directories. Phase 2 must produce an `OWNERS.md` mapping directories to roles (e.g., `Sources/Feature/ → ios-dev-a`). Included in the Phase 2→3 handoff packet
+3. **File ownership** — Each teammate only edits their own directories. Phase 2 must produce an `OWNERS.md` mapping directories to roles. Included in the Phase 2→3 handoff packet. OWNERS.md canonical schema:
+   ```
+   | directory_glob | owner_role | notes |
+   |----------------|------------|-------|
+   | Sources/FeatureA/** | ios-dev-a | Feature A code |
+   ```
+   Validation: `directory_glob` must be repo-relative and end with `/**`. Every source directory must match exactly one row (no gaps, no overlaps). Missing or malformed OWNERS.md is a gate-blocking deficiency
 4. **Evidence-based completion** — Use verification-before-completion before ANY completion claims
 5. **Code review required** — QA reviews all major features before proceeding
 6. **Task assignment** — Phase 1-2: leader assigns. Phase 3-5: self-assign within own ownership scope
@@ -111,5 +117,5 @@ Phase 0: Team Composition [user approval]
 8. **Non-stop development** — After Phase 2 approval, DO NOT STOP until Phase 5 is complete
 9. **Feedback loops** — QA pattern repeated 2+ times → add linter rule or golden rule
 10. **Only work on tasks assigned to YOU** — Do NOT complete another teammate's task
-11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires explicit user approval with reason logged. Auto-triggered on: security decisions (auth/authz, secrets, encryption, PII), DB migrations, new architecture patterns (framework or design pattern not previously used), external API integrations (new outbound endpoint or third-party SDK), large diffs (10+ files)
+11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires ALL of: (1) small scope (<5 files, single feature), (2) no risk triggers present, (3) explicit user approval with stated reason logged, (4) QA co-sign confirming no risk triggers. Waiver valid for current phase only; does not carry forward. Auto-triggered on: security decisions (auth/authz, secrets, encryption, PII), DB migrations, new architecture patterns (framework or design pattern not previously used), external API integrations (new outbound endpoint or third-party SDK), large diffs (10+ files)
 12. **Hard gate lock** — No implementation task may begin until Phase 1 and Phase 2 each receive `GATE:PASS` from QA (not the leader or artifact author) plus user approval. `GATE:FAIL` blocks all downstream work

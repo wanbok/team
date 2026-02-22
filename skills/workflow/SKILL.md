@@ -112,10 +112,11 @@ Priority format is flexible: must/should/could, P0/P1/P2, ✅/⚠️, or project
 ## Deferred Items
 - [items to resolve in Phase 2 — allowed to remain]
 
-## Oracle Findings (required when Oracle review is conducted)
+## Oracle Findings (required)
 | Finding ID | Severity | Description | Resolution | Linked Task ID | Owner |
 |------------|----------|-------------|------------|----------------|-------|
 | OF-1 | High/Medium/Low | ... | Fixed/Deferred/Accepted | T-N or - | ... |
+(if no findings were raised, include: `OF-0 | None | No findings | - | - | [validator role]`)
 
 Gate rule: Any High severity finding without a mitigation task or explicit user-approved acceptance blocks gate passage.
 ```
@@ -124,7 +125,7 @@ Gate rule: Any High severity finding without a mitigation task or explicit user-
 - All sections present
 - **Blocking Questions** must be empty (all resolved). Deferred Items may remain
 - Each FR has a priority indicator (format flexible)
-- Each FR must include at least 1 acceptance criterion (Given/When/Then or equivalent testable statement)
+- Each FR must include at least 2 acceptance criteria: 1 happy-path and 1 failure/edge-case (Given/When/Then or equivalent testable statement). Placeholders (TBD, TBA, N/A) are invalid
 - At least 1 persona, 1 success metric, 1 NFR
 - Scope Boundary: minimum 2 in-scope items and 2 out-of-scope items
 - Competitive Analysis: minimum 3 apps, all 5 columns filled (no empty cells)
@@ -147,9 +148,9 @@ Each task must include: owner, dependency, and corresponding test.
 Format is flexible — consolidated table OR per-task sections both acceptable:
 
 Option A (table):
-| # | Task | Owner | Depends On | Test |
-|---|------|-------|------------|------|
-| T-1 | [description] | [role] | - | [test file/case] |
+| # | Task | Files | Owner | Depends On | Test |
+|---|------|-------|-------|------------|------|
+| T-1 | [description] | [file paths] | [role] | - | [test file/case] |
 
 Option B (per-task sections):
 ### Task N: [title]
@@ -165,18 +166,20 @@ Option B (per-task sections):
 ### Dependency Signatures
 - [exact function/API signatures shared between modules]
 
-## Oracle Findings (required when Oracle review is conducted)
+## Oracle Findings (required)
 | Finding ID | Severity | Description | Resolution | Linked Task ID | Owner |
 |------------|----------|-------------|------------|----------------|-------|
 | OF-1 | High/Medium/Low | ... | Fixed/Deferred/Accepted | T-N or - | ... |
+(if no findings were raised, include: `OF-0 | None | No findings | - | - | [validator role]`)
 
 Gate rule: Any High severity finding without a mitigation task or explicit user-approved acceptance blocks gate passage.
 ```
 
 **Validation rules**:
 - Architecture Overview includes at least 1 rejected alternative with rationale
-- Every file has an owner (via task assignment — no unowned files)
+- Every created/modified file appears in the Files column (Option A) or Files field (Option B) and has exactly one owner
 - Every task has a corresponding test — test file path must be specified (no "TBD" or placeholder)
+- Task Breakdown contains at least 1 task entry
 - Contracts section is non-empty (at least one State/Action or Dependency signature)
 - No task without an owner
 - Dependency graph is acyclic (no circular dependencies)
@@ -212,9 +215,16 @@ Phase 1 and Phase 2 gates require **independent validation** — the artifact au
 - Exception: blocker unreported >10min, or deadlock detected → send status check
 
 **Context rotation**:
-- Next task unrelated to previous work → shut down teammate + spawn fresh instance (prevents 200K context saturation)
-- Next task is continuation → keep existing teammate
+- Evaluate "unrelated" using three attributes: (1) feature domain, (2) primary owned directory, (3) stakeholder objective
+- If 2+ attributes changed from the previous task → shut down teammate + spawn fresh instance (prevents 200K context saturation)
+- If 0-1 attributes changed → keep existing teammate
 - Role name preserved; only internal instance changes
+- Before any teammate shutdown, a handoff summary is mandatory. Follow the Handoff Summary Template defined in `up.md` (max 500 words, 4 required fields)
+
+**Sub-agent constraints**:
+- Task tool subagents are READ-ONLY (research/file reading only)
+- Never delegate implementation, file edits, or other workspace-mutating work to subagents
+- If implementation is required, the assigned teammate must perform it directly
 
 ### Communication Protocol
 

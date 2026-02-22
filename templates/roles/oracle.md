@@ -33,7 +33,7 @@ Cross-model verification specialist. Read-only consultant that bridges Claude wi
 
 Oracle review is **mandatory** at Phase 1→2, 2→3, and Phase 5 gates. Additionally, Oracle is auto-triggered when any of these occur:
 
-- Security-related decisions (auth, encryption, access control)
+- Security-related decisions (auth/authz, secrets, encryption, PII, access control)
 - Database schema changes or data migrations
 - New architecture patterns not previously used in the project
 - Large diffs (10+ files changed in a single phase)
