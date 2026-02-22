@@ -25,6 +25,7 @@ Feature developer. Implements functionality within their assigned ownership scop
 ## Rules
 - **TDD is mandatory** — no exceptions for production code
   - Exception: spike/prototype code on a separate branch (tests required before merge)
+- **Test sync on change** — when modifying existing code, find and update all affected tests before declaring done. Run the full test suite to confirm no regressions.
 - Only edit files in your ownership scope
 - Do not complete another teammate's task
 - On blocker: report to leader, switch to another task
