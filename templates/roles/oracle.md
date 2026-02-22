@@ -46,6 +46,9 @@ Oracle review may be skipped **only** when ALL of the following are true:
 1. Project is small scope (single feature, <5 files)
 2. No risk triggers above are present
 3. User explicitly approves the waiver with stated reason
+4. QA co-signs the waiver (confirms no risk triggers are present)
+
+**Waiver expiry**: A waiver is valid for the current phase only. It does NOT carry forward — each phase gate requires a fresh waiver decision if Oracle is to be skipped again.
 
 The waiver must be logged in the decision log **within the same phase session** — a waiver without a log entry is invalid:
 ```markdown

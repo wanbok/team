@@ -91,6 +91,21 @@ Priority format is flexible: must/should/could, P0/P1/P2, ✅/⚠️, or project
 - **In scope**: [explicit list]
 - **Out of scope**: [explicit list]
 
+## Competitive Analysis
+| App | Core Features | Strengths | Weaknesses | Differentiation |
+|-----|--------------|-----------|------------|-----------------|
+| [app 1] | ... | ... | ... | ... |
+| [app 2] | ... | ... | ... | ... |
+| [app 3] | ... | ... | ... | ... |
+(minimum 3 apps, all columns required)
+
+## Traceability Matrix
+| FR ID | Task IDs | Test Path |
+|-------|----------|-----------|
+| FR-1 | T-1, T-2 | Tests/Feature1Tests.swift |
+| FR-2 | T-3 | Tests/Feature2Tests.swift |
+(every FR must map to at least one task and one test path — no empty cells allowed)
+
 ## Blocking Questions
 - [questions that MUST be resolved before gate passage — must be empty]
 
@@ -112,6 +127,8 @@ Gate rule: Any High severity finding without a mitigation task or explicit user-
 - Each FR must include at least 1 acceptance criterion (Given/When/Then or equivalent testable statement)
 - At least 1 persona, 1 success metric, 1 NFR
 - Scope Boundary: minimum 2 in-scope items and 2 out-of-scope items
+- Competitive Analysis: minimum 3 apps, all 5 columns filled (no empty cells)
+- Traceability Matrix: every FR has at least one Task ID and one test path — no empty cells
 - Success Metric must specify: baseline (or "new"), target value, and measurement method
 - **Validated by QA** (not the artifact author). Artifact must include `Validated-by: [role] [timestamp]`
 

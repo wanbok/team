@@ -64,9 +64,16 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
 - Other teammates wait until the cross-ownership change is complete before modifying related files.
 
 **Handoff packets**:
-- Phase 2→3: each task assignment must include Task ID, owner role, reviewer role, and acceptance test reference.
+- Phase 2→3: each task assignment must include Task ID, owner role, reviewer role, and acceptance test reference. Must also include OWNERS.md (directory-to-role map) for the project.
 - Phase 3→4: dev submits an evidence packet per Task ID before QA review: test run output, coverage report, and diff summary.
 - Phase 4→5: QA submits test summary with pass/fail counts, coverage percentage, and list of open issues.
+- **Oracle trigger checklist** (required in every phase handoff packet):
+  - [ ] Security decisions (auth/authz, secrets, encryption, PII)?
+  - [ ] DB migrations or schema changes?
+  - [ ] New architecture pattern (framework/design pattern not previously used)?
+  - [ ] External API integration (new outbound endpoint or third-party SDK)?
+  - [ ] Large diff (10+ files)?
+  - If any box is checked → Oracle review is mandatory for this transition.
 
 **Decision log SLA**:
 - Every gate approval, waiver, or exception must be logged in the project decision file within the same phase session. A missing entry blocks the next gate.
@@ -96,7 +103,7 @@ Phase 0: Team Composition [user approval]
 
 1. **Requirements first** — NO code before requirements are approved. Requirements must pass the Artifact Schema (see workflow skill)
 2. **TDD required** — ALL code must have tests written FIRST (Red → Green → Refactor). Implementation plan must map every task to a test
-3. **File ownership** — Each teammate only edits their own directories (defined in project CLAUDE.md)
+3. **File ownership** — Each teammate only edits their own directories. Phase 2 must produce an `OWNERS.md` mapping directories to roles (e.g., `Sources/Feature/ → ios-dev-a`). Included in the Phase 2→3 handoff packet
 4. **Evidence-based completion** — Use verification-before-completion before ANY completion claims
 5. **Code review required** — QA reviews all major features before proceeding
 6. **Task assignment** — Phase 1-2: leader assigns. Phase 3-5: self-assign within own ownership scope
