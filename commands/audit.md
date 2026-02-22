@@ -148,7 +148,17 @@ Output audit results to the user:
 [per-area gaps and recommendations]
 ```
 
-### Step 5: Apply (Optional)
+### Step 5: Challenge Recommendations
+
+Before applying, critically evaluate Oracle's concrete recommendations:
+
+- **Specific numbers** (e.g., "500 words", "3 apps", "60% threshold"): Ask "why this number and not another?" Present at least 2 alternatives with trade-offs
+- **New structural additions** (e.g., new schema sections, new checklist items): Assess whether the gap is real or theoretical — does the team actually hit this failure mode?
+- **Reject or defer** recommendations that lack clear justification or address hypothetical problems
+
+Present the challenged recommendations to the user with alternatives before applying.
+
+### Step 6: Apply (Optional)
 
 If user approves, apply the priority fixes directly:
 - Edit framework files (workflow/SKILL.md, up.md, role templates)
