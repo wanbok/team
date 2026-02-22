@@ -47,9 +47,20 @@ Oracle review may be skipped **only** when ALL of the following are true:
 2. No risk triggers above are present
 3. User explicitly approves the waiver with stated reason
 
-The waiver must be logged in the decision log:
+The waiver must be logged in the decision log **within the same phase session** — a waiver without a log entry is invalid:
 ```markdown
 | Date | Decision | Reason | Rejected Alternatives |
 |------|----------|--------|-----------------------|
 | YYYY-MM-DD | Oracle waived at Phase N | [user's reason] | Full Oracle review |
 ```
+
+## Oracle Findings Format
+
+When Oracle review is conducted, findings must be recorded in the phase artifact's Oracle Findings table:
+
+| Finding ID | Severity | Description | Resolution | Linked Task ID | Owner |
+|------------|----------|-------------|------------|----------------|-------|
+
+- **High**: Must fix before gate passage (blocking). Requires mitigation task or explicit user-approved acceptance
+- **Medium**: PM judgment — fix or accept with documented rationale
+- **Low**: Add to backlog

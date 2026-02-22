@@ -96,14 +96,24 @@ Priority format is flexible: must/should/could, P0/P1/P2, ✅/⚠️, or project
 
 ## Deferred Items
 - [items to resolve in Phase 2 — allowed to remain]
+
+## Oracle Findings (required when Oracle review is conducted)
+| Finding ID | Severity | Description | Resolution | Linked Task ID | Owner |
+|------------|----------|-------------|------------|----------------|-------|
+| OF-1 | High/Medium/Low | ... | Fixed/Deferred/Accepted | T-N or - | ... |
+
+Gate rule: Any High severity finding without a mitigation task or explicit user-approved acceptance blocks gate passage.
 ```
 
 **Validation rules**:
 - All sections present
 - **Blocking Questions** must be empty (all resolved). Deferred Items may remain
 - Each FR has a priority indicator (format flexible)
+- Each FR must include at least 1 acceptance criterion (Given/When/Then or equivalent testable statement)
 - At least 1 persona, 1 success metric, 1 NFR
-- Scope Boundary explicitly separates in/out of scope
+- Scope Boundary: minimum 2 in-scope items and 2 out-of-scope items
+- Success Metric must specify: baseline (or "new"), target value, and measurement method
+- **Validated by QA** (not the artifact author). Artifact must include `Validated-by: [role] [timestamp]`
 
 ### Phase 2 Implementation Plan Schema
 
@@ -137,15 +147,33 @@ Option B (per-task sections):
 
 ### Dependency Signatures
 - [exact function/API signatures shared between modules]
+
+## Oracle Findings (required when Oracle review is conducted)
+| Finding ID | Severity | Description | Resolution | Linked Task ID | Owner |
+|------------|----------|-------------|------------|----------------|-------|
+| OF-1 | High/Medium/Low | ... | Fixed/Deferred/Accepted | T-N or - | ... |
+
+Gate rule: Any High severity finding without a mitigation task or explicit user-approved acceptance blocks gate passage.
 ```
 
 **Validation rules**:
 - Architecture Overview includes at least 1 rejected alternative with rationale
 - Every file has an owner (via task assignment — no unowned files)
-- Every task has a corresponding test
+- Every task has a corresponding test — test file path must be specified (no "TBD" or placeholder)
 - Contracts section is non-empty (at least one State/Action or Dependency signature)
 - No task without an owner
 - Dependency graph is acyclic (no circular dependencies)
+- **Validated by QA** (not the artifact author). Artifact must include `Validated-by: [role] [timestamp]`
+
+## Hard Gate Enforcement
+
+Phase 1 and Phase 2 gates require **independent validation** — the artifact author cannot self-certify.
+
+- QA (or a designated validator) reviews the artifact against the schema above
+- Required output: `GATE:PASS` or `GATE:FAIL` with specific deficiencies listed
+- `GATE:FAIL` blocks phase transition — all implementation tasks remain locked
+- Leader may not override `GATE:FAIL`; only fixing the deficiencies and re-validation can advance the gate
+- User approval is required **after** `GATE:PASS`, not instead of it
 
 ## Leader Coordination Patterns
 
@@ -199,3 +227,11 @@ After every major analysis, self-verify:
 1. What was the hardest decision?
 2. What alternatives were rejected and why?
 3. What am I least confident about?
+
+### Decision Log SLA
+
+Every gate approval, waiver, or exception must be logged in the project's decision file **within the same phase session**. A missing decision log entry blocks the next gate. This includes:
+- Phase gate passage decisions
+- Oracle waiver decisions
+- Cross-ownership change approvals
+- Architecture or scope changes after Phase 2 freeze

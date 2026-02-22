@@ -48,8 +48,22 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
   3. What am I least confident about?
 - Do NOT intervene with idle teammates who have active tasks (they may be waiting for subagents).
   - Exception: blocker unreported >10min or deadlock detected.
-- Context rotation: when next task is unrelated to previous work, shut down teammate and spawn fresh instance with same role name.
+- Context rotation: when next task is unrelated to previous work (changes 2+ of: feature domain, primary owned directory, stakeholder objective), shut down teammate and spawn fresh instance with same role name. Write a handoff summary before shutdown.
 - Task tool subagents are READ-ONLY (research/file reading only). Never delegate implementation to subagents.
+
+### Coordination Protocols
+
+**Cross-ownership changes**:
+- If a task spans more than one ownership area, leader creates a joint task with a primary owner and required co-reviewers before any coding begins.
+- Other teammates wait until the cross-ownership change is complete before modifying related files.
+
+**Handoff packets**:
+- Phase 2→3: each task assignment must include Task ID, owner role, reviewer role, and acceptance test reference.
+- Phase 3→4: dev submits an evidence packet per Task ID before QA review: test run output, coverage report, and diff summary.
+- Phase 4→5: QA submits test summary with pass/fail counts, coverage percentage, and list of open issues.
+
+**Decision log SLA**:
+- Every gate approval, waiver, or exception must be logged in the project decision file within the same phase session. A missing entry blocks the next gate.
 
 ### Workflow Phases
 
@@ -84,4 +98,5 @@ Phase 0: Team Composition [user approval]
 8. **Non-stop development** — After Phase 2 approval, DO NOT STOP until Phase 5 is complete
 9. **Feedback loops** — QA pattern repeated 2+ times → add linter rule or golden rule
 10. **Only work on tasks assigned to YOU** — Do NOT complete another teammate's task
-11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires explicit user approval with reason logged. Auto-triggered on: security decisions, migrations, new architecture patterns, large diffs (10+ files)
+11. **Oracle default ON** — Oracle review is mandatory at Phase 1→2, 2→3, and Phase 5 gates. Waiver requires explicit user approval with reason logged. Auto-triggered on: security decisions (auth/authz, secrets, encryption, PII), DB migrations, new architecture patterns (framework or design pattern not previously used), external API integrations (new outbound endpoint or third-party SDK), large diffs (10+ files)
+12. **Hard gate lock** — No implementation task may begin until Phase 1 and Phase 2 each receive `GATE:PASS` from QA (not the leader or artifact author) plus user approval. `GATE:FAIL` blocks all downstream work
