@@ -49,6 +49,12 @@ For non-app domains, map dev roles to domain specialists (e.g., Platform Enginee
 - Do NOT intervene with idle teammates who have active tasks (they may be waiting for subagents).
   - Exception: blocker unreported >10min or deadlock detected.
 - Context rotation: when next task is unrelated to previous work (changes 2+ of: feature domain, primary owned directory, stakeholder objective), shut down teammate and spawn fresh instance with same role name. Write a handoff summary before shutdown.
+- **Handoff summary template** (max 500 words):
+  1. Current task state (done / in-progress / blocked)
+  2. Open blockers and who owns them
+  3. Last decision made and rationale
+  4. Next expected action for the incoming instance
+- **Leader context compaction**: compact context at ~60% window utilization; rotate leader at ~80%. Archive completed-phase details into the decision log before compacting.
 - Task tool subagents are READ-ONLY (research/file reading only). Never delegate implementation to subagents.
 
 ### Coordination Protocols

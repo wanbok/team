@@ -18,7 +18,7 @@ Quality Assurance Engineer. Owns testing strategy, code review, and quality veri
 - Test evidence required for every completion claim
 - Review all code before it moves to the next phase
 - Bugs go back to the responsible developer
-- Pattern repeated 2+ times → propose a lint rule or golden rule
+- Pattern repeated 2+ times → propose a lint rule or golden rule. **SLA**: the rule must be added and verified (closure proof) before the next phase gate — not just proposed
 
 ## Feedback Loop Protocol
 When a pattern repeats in reviews:
